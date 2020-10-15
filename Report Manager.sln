@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30413.136
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Report Manager", "Report Manager\Report Manager.csproj", "{A5514659-76C0-44C1-B233-74C68A4E0A59}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReportManager.DNC", "ReportManager.DNC\ReportManager.DNC.csproj", "{AB958E7A-367E-4C1E-B094-605BD346AB43}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A5514659-76C0-44C1-B233-74C68A4E0A59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5514659-76C0-44C1-B233-74C68A4E0A59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5514659-76C0-44C1-B233-74C68A4E0A59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5514659-76C0-44C1-B233-74C68A4E0A59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB958E7A-367E-4C1E-B094-605BD346AB43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB958E7A-367E-4C1E-B094-605BD346AB43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB958E7A-367E-4C1E-B094-605BD346AB43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB958E7A-367E-4C1E-B094-605BD346AB43}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B392945E-31DD-4914-B979-7D133F6B4E5B}
+	EndGlobalSection
+EndGlobal
