@@ -1,4 +1,5 @@
-﻿using iText.Kernel.Pdf;
+﻿using iText.IO.Font.Constants;
+using iText.Kernel.Pdf;
 using iText.Layout;
 ///
 /// Constructs the report and returns a string indicating the path to the temporary file containing a PDF document.
@@ -51,12 +52,6 @@ namespace Report_Manager
         public int DocumentPageSizeCode { get; set; }
 
         /// <summary>
-        /// Represents the font family that will be used during the creation of the report - Courier is recommended
-        /// But any single space font will be acceptable. Cast name as string
-        /// </summary>
-        public string FontFamily { get; set; }
-
-        /// <summary>
         /// Represents the Left Margin size as float = Recommended: 25f for letter size documents
         /// </summary>
         public float LeftMargin { get; set; }
@@ -85,7 +80,7 @@ namespace Report_Manager
         #region Constructors
         // Full constructor
         public CreateReport(DataTable reportData, StringBuilder documentHeader, bool includeReportDate, bool includeEndOfRecordIndicator, 
-            int documentPageSizeCode, string fontFamily, float leftMargin, float rightMargin, float topMargin, float bottomMargin)
+            int documentPageSizeCode, float leftMargin, float rightMargin, float topMargin, float bottomMargin)
         {
             // Sets temporary file path which will be returned to the user as the location of the report
             FilePath = Path.GetTempFileName();
@@ -96,7 +91,6 @@ namespace Report_Manager
             IncludeReportDate = includeReportDate;
             IncludeEndOfRecordIndicator = includeEndOfRecordIndicator;
             DocumentPageSizeCode = documentPageSizeCode;
-            FontFamily = fontFamily;
             LeftMargin = leftMargin;
             RightMargin = rightMargin;
             TopMargin = topMargin;
@@ -114,7 +108,6 @@ namespace Report_Manager
             IncludeReportDate = true;
             IncludeEndOfRecordIndicator = true;
             DocumentPageSizeCode = 2;
-            FontFamily = "Courier";
             LeftMargin = 25f;
             RightMargin = 25f;
             TopMargin = 35f;
@@ -133,7 +126,6 @@ namespace Report_Manager
             IncludeReportDate = includeReportDate;
             IncludeEndOfRecordIndicator = true;
             DocumentPageSizeCode = 2;
-            FontFamily = "Courier";
             LeftMargin = 25f;
             RightMargin = 25f;
             TopMargin = 35f;
@@ -152,50 +144,12 @@ namespace Report_Manager
             IncludeReportDate = includeReportDate;
             IncludeEndOfRecordIndicator = includeEndOfRecordIndicator;
             DocumentPageSizeCode = 2;
-            FontFamily = "Courier";
             LeftMargin = 25f;
             RightMargin = 25f;
             TopMargin = 35f;
             BottomMargin = 25f;
         }
 
-        // Defaults with font Option
-        public CreateReport(DataTable reportData, StringBuilder documentHeader, string fontFamily)
-        {
-            // Sets temporary file path which will be returned to the user as the location of the report
-            FilePath = Path.GetTempFileName();
-
-            // Sets other properties
-            ReportData = reportData;
-            DocumentHeader = documentHeader;
-            IncludeReportDate = true;
-            IncludeEndOfRecordIndicator = true;
-            DocumentPageSizeCode = 2;
-            FontFamily = fontFamily;
-            LeftMargin = 25f;
-            RightMargin = 25f;
-            TopMargin = 35f;
-            BottomMargin = 25f;
-        }
-
-        // Defaults with font, date and end of record indicator
-        public CreateReport(DataTable reportData, StringBuilder documentHeader, bool includeReportDate, bool includeEndOfRecordIndicator, string fontFamily)
-        {
-            // Sets temporary file path which will be returned to the user as the location of the report
-            FilePath = Path.GetTempFileName();
-
-            // Sets other properties
-            ReportData = reportData;
-            DocumentHeader = documentHeader;
-            IncludeReportDate = includeReportDate;
-            IncludeEndOfRecordIndicator = includeEndOfRecordIndicator;
-            DocumentPageSizeCode = 2;
-            FontFamily = fontFamily;
-            LeftMargin = 25f;
-            RightMargin = 25f;
-            TopMargin = 35f;
-            BottomMargin = 25f;
-        }
         #endregion
 
         #region Public Methods
@@ -223,6 +177,8 @@ namespace Report_Manager
                 ReportDocument Report = new ReportDocument(writer, DocumentPageSizeCode);
                 // Adds the header content
                 Document doc = new Document(Report);
+                // Sets the document font
+                doc.SetFontFamily(StandardFonts.COURIER); 
                 doc.Add(new HeaderContentBuilder(DocumentHeader, IncludeReportDate).ReportHeader());
                 // Adds the report body content
                 doc.Add(new ReportBodyContentBuilder(ReportData, ColumnsAsDates).ReportBody());
