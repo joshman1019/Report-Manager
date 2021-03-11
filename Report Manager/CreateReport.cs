@@ -1,4 +1,6 @@
-﻿///
+﻿using iText.Kernel.Pdf;
+using iText.Layout;
+///
 /// Constructs the report and returns a string indicating the path to the temporary file containing a PDF document.
 /// Developer will pass variables through constructor, but minimal data and header information is all that is required.
 /// Developer may read and set properties independantly if he/she wishes to change a property that is not
@@ -7,11 +9,10 @@
 using Report_Manager.Builders;
 using Report_Manager.Components;
 using System;
-using System.Data;
-using System.Text;
-using iTextSharp.text.pdf;
-using System.IO;
 using System.Collections.Generic;
+using System.Data;
+using System.IO;
+using System.Text;
 
 namespace Report_Manager
 {
@@ -217,19 +218,18 @@ namespace Report_Manager
             try
             {
                 // Creates a report document
-                ReportDocument Report = new ReportDocument(LeftMargin, RightMargin, TopMargin, BottomMargin, DocumentPageSizeCode);
                 // Creates an instance of the PdfWriter
-                PdfWriter.GetInstance(Report, new FileStream(FilePath, FileMode.Create));
-                // Opens the document for insertion of elements
-                Report.Open();
+                PdfWriter writer = new PdfWriter(FilePath);
+                ReportDocument Report = new ReportDocument(writer, DocumentPageSizeCode);
                 // Adds the header content
-                Report.Add(new HeaderContentBuilder(DocumentHeader, true, FontFamily).ReportHeader());
+                Document doc = new Document(Report);
+                doc.Add(new HeaderContentBuilder(DocumentHeader, IncludeReportDate).ReportHeader());
                 // Adds the report body content
-                Report.Add(new ReportBodyContentBuilder(ReportData, FontFamily, ColumnsAsDates).ReportBody());
+                doc.Add(new ReportBodyContentBuilder(ReportData, ColumnsAsDates).ReportBody());
                 // Adds the report end of record indicator if requested
                 if (IncludeEndOfRecordIndicator == true)
                 {
-                    Report.Add(new EndOfRecordIndicatorBuilder(FontFamily).EndOfRecordIndicator());
+                    doc.Add(new EndOfRecordIndicatorBuilder().EndOfRecordIndicator());
                 }
                 // Closes the report and saves changes
                 Report.Close();

@@ -1,20 +1,20 @@
 ﻿/// Creates an end of record indicator which will lie at the end of a report document if desired. 
-using iTextSharp.text;
+
+using iText.IO.Font.Constants;
+using iText.Kernel.Font;
+using iText.Layout.Element;
 
 namespace Report_Manager.Components
 {
     public class EndOfRecordIndicator : Paragraph
     {
-        // Private Members
-        private Fonts.Fonts fontPackage = new Fonts.Fonts();        
-
         // Constructor
-        public EndOfRecordIndicator(string fontFamily)
-        {           
-            Add(new Paragraph("*** END OF RECORD ***", fontPackage.BoldStandardSizeFont(fontFamily))
-            {
-                Alignment = Element.ALIGN_CENTER        // Element alignment configuration
-            });
+        public EndOfRecordIndicator()
+        {
+            Paragraph paragraph = new Paragraph("*** END OF RECORD ***");
+            paragraph.SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER);
+            paragraph.SetFont(PdfFontFactory.CreateFont(StandardFonts.COURIER_BOLD));
+            Add(paragraph); 
         }
     }
 }

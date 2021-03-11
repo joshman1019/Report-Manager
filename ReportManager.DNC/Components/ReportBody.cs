@@ -1,6 +1,7 @@
 ﻿///
 /// Creates a report body which will be returned by the Body Content Builder. This report body will later be added to the report document.
 /// 
+using iText.IO.Font.Constants;
 using iText.Layout.Element;
 using iText.Layout.Properties;
 using System.Collections.Generic;
@@ -32,7 +33,9 @@ namespace Report_Manager.Components
             // Adds the header cells constructed by the BodyContentBuilder
             foreach (Cell headerCell in m_HeaderCells)
             {
-                AddCell(headerCell);
+                headerCell.SetFontFamily(StandardFonts.COURIER_BOLD);
+                headerCell.SetFontSize(12); 
+                AddHeaderCell(headerCell);
             }
         }
 
@@ -41,6 +44,7 @@ namespace Report_Manager.Components
             // Adds the body content cells constructed by the BodyContentBuilder
             foreach (Cell bodyContentCell in m_BodyContentCells)
             {
+                bodyContentCell.SetFontSize(12); 
                 AddCell(bodyContentCell);
             }
         }

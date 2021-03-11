@@ -8,18 +8,10 @@ namespace Report_Manager.Builders
 {
     public class EndOfRecordIndicatorBuilder
     {
-        // Private Fields
-        private string _fontFamily;
-
-        public EndOfRecordIndicatorBuilder(string fontFamily)
-        {
-            _fontFamily = fontFamily;
-        }
-
         // Returns end of record indicator to be added to the end of every report if desired
         public EndOfRecordIndicator EndOfRecordIndicator()
         {
-            return new EndOfRecordIndicator(_fontFamily);
+            return new EndOfRecordIndicator();
         }
     }
 }

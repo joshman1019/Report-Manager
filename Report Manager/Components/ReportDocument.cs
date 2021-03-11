@@ -1,13 +1,14 @@
-﻿///
+﻿
+using iText.Kernel.Geom;
+using iText.Kernel.Pdf;
+///
 /// Returns a document to be used by the report generator which will hold all of the data inserted into it
 /// 
-using iTextSharp.text;
-
 namespace Report_Manager.Components
 {
-    public class ReportDocument : Document
+    public class ReportDocument : PdfDocument
     {
-        public ReportDocument(float leftMargin, float rightMargin, float topMargin, float bottomMargin, int pageSize) : base()
+        public ReportDocument(PdfWriter writer, int pageSize) : base(writer)
         {
             /// Sets page size based on the following integer values
             /// 1 - Letter Standard
@@ -17,24 +18,21 @@ namespace Report_Manager.Components
             switch (pageSize)
             {                
                 case 1:
-                    SetPageSize(iTextSharp.text.PageSize.LETTER);
+                    SetDefaultPageSize(PageSize.LETTER); 
                     break;
                 case 2:
-                    SetPageSize(iTextSharp.text.PageSize.LETTER.Rotate());                    
+                    SetDefaultPageSize(PageSize.LETTER.Rotate());
                     break;
                 case 3:
-                    SetPageSize(iTextSharp.text.PageSize.LEGAL);
+                    SetDefaultPageSize(PageSize.LEGAL);
                     break;
                 case 4:
-                    SetPageSize(iTextSharp.text.PageSize.LEGAL.Rotate());
+                    SetDefaultPageSize(PageSize.LEGAL.Rotate());
                     break;
                 default:
-                    SetPageSize(iTextSharp.text.PageSize.LETTER);
+                    SetDefaultPageSize(PageSize.LETTER);
                     break;
             }
-
-            // Sets page margins
-            SetMargins(leftMargin, rightMargin, topMargin, bottomMargin);
         }
     }
 }

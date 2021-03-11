@@ -11,34 +11,32 @@ namespace Report_Manager.Builders
     public class HeaderContentBuilder
     {
         // Private fields
-        private StringBuilder _headerContent;
-        private bool _includeReportDate;
-        private string _fontFamily;
+        private StringBuilder m_HeaderContent;
+        private bool m_IncludeReportDate;
 
         // Constructor
-        public HeaderContentBuilder(StringBuilder headerContent, bool includeReportDate, string fontFamily)
+        public HeaderContentBuilder(StringBuilder headerContent, bool includeReportDate)
         {
-            _headerContent = headerContent;
-            _includeReportDate = includeReportDate;
-            _fontFamily = fontFamily;
+            m_HeaderContent = headerContent;
+            m_IncludeReportDate = includeReportDate;
         }
 
         // Returns a new header for placement into the ReportDocument
         public Header ReportHeader()
         {
-            return new Header(HeaderAssembler(), _fontFamily);
+            return new Header(HeaderAssembler());
         }
 
         // Determines how header content is constructed (includes date if indicated)
         private StringBuilder HeaderAssembler()
         {
-            if (_includeReportDate == true)
+            if (m_IncludeReportDate == true)
             {
-                _headerContent.AppendLine("");
-                _headerContent.AppendLine($"Date of Report: {DateTime.Today.ToShortDateString()}");
-                return _headerContent;
+                m_HeaderContent.AppendLine("");
+                m_HeaderContent.AppendLine($"Date of Report: {DateTime.Today.ToShortDateString()}");
+                return m_HeaderContent;
             }
-            else return _headerContent;
+            else return m_HeaderContent;
         }
     }
 }

@@ -1,28 +1,26 @@
 ﻿///
 /// Creates a report body which will be returned by the Body Content Builder. This report body will later be added to the report document.
 /// 
+using iText.Layout.Element;
+using iText.Layout.Properties;
 using System.Collections.Generic;
-using iTextSharp.text.pdf;
+
 
 namespace Report_Manager.Components
 {
-    public class ReportBody : PdfPTable
+    public class ReportBody : Table
     {
         // Private Members
-        private List<PdfPHeaderCell> _headerCells = new List<PdfPHeaderCell>();
-        private List<PdfPCell> _bodyContentCells = new List<PdfPCell>();            
+        private List<Cell> m_HeaderCells = new List<Cell>();
+        private List<Cell> m_BodyContentCells = new List<Cell>();            
 
         // Constructor
-        public ReportBody(List<PdfPHeaderCell> headerCells, List<PdfPCell> bodyContentCells) : base()
+        public ReportBody(List<Cell> headerCells, List<Cell> bodyContentCells) : base(headerCells.Count)
         {
-            _headerCells = headerCells;
-            _bodyContentCells = bodyContentCells;
-
-            // ReportBody Configuration
-            ResetColumnCount(headerCells.Count);      // Sets the column count
-            WidthPercentage = 100;                    // Width of body content (percentage)   
-            HeaderRows = 1;                           // Number of header rows
-            spacingAfter = 5;                         // Spacing after body content
+            SetWidth(UnitValue.CreatePercentValue(100)); 
+            m_HeaderCells = headerCells;
+            m_BodyContentCells = bodyContentCells;
+            SetMargin(5); 
 
             // Construction
             AddHeaderCells();
@@ -32,7 +30,7 @@ namespace Report_Manager.Components
         private void AddHeaderCells()
         {
             // Adds the header cells constructed by the BodyContentBuilder
-            foreach (PdfPHeaderCell headerCell in _headerCells)
+            foreach (Cell headerCell in m_HeaderCells)
             {
                 AddCell(headerCell);
             }
@@ -41,7 +39,7 @@ namespace Report_Manager.Components
         private void AddReportBodyCells()
         {
             // Adds the body content cells constructed by the BodyContentBuilder
-            foreach (PdfPCell bodyContentCell in _bodyContentCells)
+            foreach (Cell bodyContentCell in m_BodyContentCells)
             {
                 AddCell(bodyContentCell);
             }

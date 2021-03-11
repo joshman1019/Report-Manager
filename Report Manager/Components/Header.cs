@@ -1,41 +1,31 @@
-﻿/// 
-/// Generates a header to be used by the HeaderContentBuilder which will later be added to the report document. 
-/// 
+﻿using iText.IO.Font.Constants;
+using iText.Kernel.Font;
+using iText.Layout.Element;
+using iText.Layout.Properties;
 using System.Text;
-using iTextSharp.text.pdf;
-using iTextSharp.text;
 
 namespace Report_Manager.Components
 {
-    public class Header : PdfPTable
+    public class Header : Table
     {
-        // Private Members
-        private Fonts.Fonts FontPackage = new Fonts.Fonts();
-
         // Constructor
-        public Header(StringBuilder headerContent, string fontFamily) : base()
+        public Header(StringBuilder headerContent) : base(1)
         {
-            // Sets column count to 1, width percentage (of base document) to 90%, and spacing after header to 20pts. 
-            ResetColumnCount(1);
-            WidthPercentage = 90;
-            spacingAfter = 20;
+            SetWidth(UnitValue.CreatePercentValue(90));
+            SetMarginBottom(20);
 
-            // Defaults the cell border color to white if other cells are added with a specific border color
-            DefaultCell.BorderColor = BaseColor.WHITE;
-
-            // Adds the content cell, filling header content and setting font family
-            AddCell(ContentCell(headerContent, fontFamily));
+            AddCell(ContentCell(headerContent));
         }
 
         // Cell that contains the content of the header table
-        private PdfPCell ContentCell(StringBuilder headerContent, string fontFamily)
+        private Cell ContentCell(StringBuilder headerContent)
         {
-            return new PdfPCell(new Paragraph(headerContent.ToString(), FontPackage.StandardSizeFont(fontFamily)))
-            {
-                HorizontalAlignment = Element.ALIGN_CENTER,
-                VerticalAlignment = Element.ALIGN_MIDDLE,
-                BorderColor = BaseColor.WHITE
-            };
+            Cell cell = new Cell();
+            cell.Add(new Paragraph(headerContent.ToString()));
+            cell.SetFont(PdfFontFactory.CreateFont(StandardFonts.COURIER_BOLD));
+            cell.SetHorizontalAlignment(HorizontalAlignment.CENTER);
+            cell.SetVerticalAlignment(VerticalAlignment.MIDDLE);
+            return cell; 
         }
     }
 }
