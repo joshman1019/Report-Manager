@@ -15,17 +15,19 @@ namespace Report_Manager.Builders
         // Private Fields
         private DataTable m_ReportData;
         List<int> m_ColumnsAsDates;
+        private int m_FontSize = 0; 
 
         // Constructor
-        public ReportBodyContentBuilder(DataTable reportData, List<int> columnsAsDates)
+        public ReportBodyContentBuilder(DataTable reportData, List<int> columnsAsDates, int fontSize)
         {
             m_ReportData = reportData;
             m_ColumnsAsDates = columnsAsDates;
+            m_FontSize = fontSize; 
         }
 
         public ReportBody ReportBody()
         {            
-            return new ReportBody(ColumnHeaderGenerator(), BodyContentGenerator());
+            return new ReportBody(ColumnHeaderGenerator(), BodyContentGenerator(), m_FontSize);
         }
 
         private List<Cell> ColumnHeaderGenerator()

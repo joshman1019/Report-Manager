@@ -4,12 +4,13 @@
     <TargetFramework>net5.0</TargetFramework>
     <Authors>Joshua H. Santiago</Authors>
     <PackageId>MoleculeSoftware.Packages.ReportManager2</PackageId>
-    <Version>2.1.1</Version>
+    <Version>2.1.3</Version>
     <Company>MoleculeSoftware</Company>
     <Product>ReportManager2</Product>
     <Description>.NET Core version of MoleculeSoftware.Packages.ReportManager
 NOTE: These versions may be incompatible</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageReleaseNotes>WARNING *** BREAKING CHANGE *** CreateDocument now requires you to set the parameter indicating the font size you wish to use. This will allow more flexibility for different report types.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

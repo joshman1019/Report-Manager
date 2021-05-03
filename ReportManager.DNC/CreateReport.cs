@@ -167,7 +167,7 @@ namespace Report_Manager
             return Path.GetTempPath() + "report.pdf";
         }
 
-        public void CreateDocument()
+        public void CreateDocument(int fontSize)
         {
             try
             {
@@ -181,7 +181,7 @@ namespace Report_Manager
                 doc.SetFontFamily(StandardFonts.COURIER); 
                 doc.Add(new HeaderContentBuilder(DocumentHeader, IncludeReportDate).ReportHeader());
                 // Adds the report body content
-                doc.Add(new ReportBodyContentBuilder(ReportData, ColumnsAsDates).ReportBody());
+                doc.Add(new ReportBodyContentBuilder(ReportData, ColumnsAsDates, fontSize).ReportBody());
                 // Adds the report end of record indicator if requested
                 if (IncludeEndOfRecordIndicator == true)
                 {

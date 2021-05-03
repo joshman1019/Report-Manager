@@ -13,14 +13,16 @@ namespace Report_Manager.Components
     {
         // Private Members
         private List<Cell> m_HeaderCells = new List<Cell>();
-        private List<Cell> m_BodyContentCells = new List<Cell>();            
+        private List<Cell> m_BodyContentCells = new List<Cell>();
+        private int m_FontSize; 
 
         // Constructor
-        public ReportBody(List<Cell> headerCells, List<Cell> bodyContentCells) : base(headerCells.Count)
+        public ReportBody(List<Cell> headerCells, List<Cell> bodyContentCells, int fontSize = 10) : base(headerCells.Count)
         {
             SetWidth(UnitValue.CreatePercentValue(100)); 
             m_HeaderCells = headerCells;
             m_BodyContentCells = bodyContentCells;
+            m_FontSize = fontSize; 
             SetMargin(5); 
 
             // Construction
@@ -34,7 +36,7 @@ namespace Report_Manager.Components
             foreach (Cell headerCell in m_HeaderCells)
             {
                 headerCell.SetFontFamily(StandardFonts.COURIER_BOLD);
-                headerCell.SetFontSize(12); 
+                headerCell.SetFontSize(m_FontSize); 
                 AddHeaderCell(headerCell);
             }
         }
@@ -44,7 +46,7 @@ namespace Report_Manager.Components
             // Adds the body content cells constructed by the BodyContentBuilder
             foreach (Cell bodyContentCell in m_BodyContentCells)
             {
-                bodyContentCell.SetFontSize(12); 
+                bodyContentCell.SetFontSize(m_FontSize); 
                 AddCell(bodyContentCell);
             }
         }
