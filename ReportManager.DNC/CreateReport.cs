@@ -1,6 +1,7 @@
 ﻿using iText.IO.Font.Constants;
 using iText.Kernel.Pdf;
 using iText.Layout;
+using iText.Layout.Font;
 ///
 /// Constructs the report and returns a string indicating the path to the temporary file containing a PDF document.
 /// Developer will pass variables through constructor, but minimal data and header information is all that is required.
@@ -178,14 +179,17 @@ namespace Report_Manager
                 // Adds the header content
                 Document doc = new Document(Report);
                 // Sets the document font
+                FontProvider fontProvider = new FontProvider();
+                fontProvider.AddStandardPdfFonts(); 
+                doc.SetFontProvider(fontProvider);
                 doc.SetFontFamily(StandardFonts.COURIER); 
-                doc.Add(new HeaderContentBuilder(DocumentHeader, IncludeReportDate).ReportHeader());
+                doc.Add(new HeaderContentBuilder(DocumentHeader, IncludeReportDate).ReportHeader().SetHorizontalAlignment(iText.Layout.Properties.HorizontalAlignment.CENTER));
                 // Adds the report body content
                 doc.Add(new ReportBodyContentBuilder(ReportData, ColumnsAsDates, fontSize).ReportBody());
                 // Adds the report end of record indicator if requested
                 if (IncludeEndOfRecordIndicator == true)
                 {
-                    doc.Add(new EndOfRecordIndicatorBuilder().EndOfRecordIndicator());
+                    doc.Add(new EndOfRecordIndicatorBuilder().EndOfRecordIndicator().SetHorizontalAlignment(iText.Layout.Properties.HorizontalAlignment.CENTER));
                 }
                 // Closes the report and saves changes
                 Report.Close();

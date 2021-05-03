@@ -39,8 +39,9 @@ namespace Report_Manager.Builders
             {
                 Cell NewHeaderCell = new Cell();
                 NewHeaderCell.SetBorder(Border.NO_BORDER);
+                NewHeaderCell.SetStrokeColor(ColorConstants.WHITE);
                 NewHeaderCell.SetBackgroundColor(ColorConstants.LIGHT_GRAY);
-                NewHeaderCell.Add(new Paragraph(column.ColumnName)); 
+                NewHeaderCell.Add(new Paragraph(column.ColumnName));
                 innerHeaderCellsList.Add(NewHeaderCell);
             }
             // Returns temporary list
@@ -63,7 +64,7 @@ namespace Report_Manager.Builders
                         {
                             Cell CellContent = new Cell();
                             CellContent.Add(new Paragraph(TempTestDate.ToShortDateString()));
-                            PdfFont font = PdfFontFactory.CreateFont(StandardFonts.COURIER); 
+                            CellContent.SetFont(PdfFontFactory.CreateFont(StandardFonts.COURIER)); 
                             innerBodyContentCellList.Add(CellContent);
                         }
                         else

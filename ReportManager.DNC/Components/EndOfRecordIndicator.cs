@@ -14,6 +14,7 @@ namespace Report_Manager.Components
             Paragraph paragraph = new Paragraph("*** END OF RECORD ***");
             paragraph.SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER);
             paragraph.SetFont(PdfFontFactory.CreateFont(StandardFonts.COURIER_BOLD));
+            SetHorizontalAlignment(iText.Layout.Properties.HorizontalAlignment.CENTER);
             Add(paragraph); 
         }
     }

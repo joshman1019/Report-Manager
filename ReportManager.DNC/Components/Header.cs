@@ -25,6 +25,7 @@ namespace Report_Manager.Components
             cell.SetFont(PdfFontFactory.CreateFont(StandardFonts.COURIER_BOLD));
             cell.SetHorizontalAlignment(HorizontalAlignment.CENTER);
             cell.SetVerticalAlignment(VerticalAlignment.MIDDLE);
+            cell.SetTextAlignment(TextAlignment.CENTER); 
             return cell; 
         }
     }
